@@ -540,7 +540,8 @@ void f(int n) {
 \pnum
 Every program shall contain at least one definition of every
 function or variable that is odr-used in that program
-outside of a discarded statement\iref{stmt.if}; no diagnostic required.
+outside of a discarded statement\iref{stmt.if};
+\ifndr{at least one definition of everything odr-used is required}{no diagnostic} required.
 The definition can appear explicitly in the program, it can be found in
 the standard or a user-defined library, or (when appropriate) it is
 implicitly defined (see~\ref{class.default.ctor}, \ref{class.copy.ctor},
@@ -631,7 +632,8 @@ if the definitions in different translation units
 do not satisfy the following requirements,
 \end{itemize}
 the program is ill-formed;
-a diagnostic is required only
+\ifndr{one item with multiple definitions in different translation units}{a diagnostic}
+is required only
 if the definable item is attached to a named module and
 a prior definition is reachable at the point where a later definition occurs.
 Given such an item,
@@ -785,7 +787,9 @@ If the definition of \tcode{f} appears in multiple translation units,
 the behavior of the program is as if
 there is only one definition of \tcode{f}.
 If the definition of \tcode{g} appears in multiple translation units,
-the program is ill-formed (no diagnostic required) because
+the program is ill-formed (
+\ifndr{one item with multiple definitions in different translation units}{no diagnostic}
+required) because
 each such definition uses a default argument that
 refers to a distinct \grammarterm{lambda-expression} closure type.
 The definition of \tcode{X} can appear
@@ -801,7 +805,9 @@ there is more than one
 reachable unnamed enumeration definition in the same scope
 that have the same first enumerator name and
 do not have typedef names for linkage purposes\iref{dcl.enum},
-those unnamed enumeration types shall be the same; no diagnostic required.
+those unnamed enumeration types shall be the same;
+\ifndr{multiple unnamed enumeration definitions with the same first enumerator name}{no diagnostic}
+required.
 \indextext{one-definition rule|)}
 
 \rSec1[basic.scope]{Scope}%
@@ -1588,7 +1594,8 @@ The result of the search is the declaration set of $S(M,T)$.
 If it is an invalid set, the program is ill-formed.
 If it differs from the result of a search in $T$ for $M$
 in a complete-class context\iref{class.mem} of $T$,
-the program is ill-formed, no diagnostic required.
+the program is ill-formed,
+\ifndr{invalid declaration set}{no diagnostic} required.
 \begin{example}
 \begin{codeblock}
 struct A { int x; };                    // S(x,A) = \{ \{ \tcode{A::x} \}, \{ \tcode{A} \} \}
@@ -2754,7 +2761,8 @@ Such an $H$ can appear only in a header unit.
 \pnum
 If two declarations of an entity are
 attached to different modules, the program is ill-formed;
-no diagnostic is required if neither is reachable from the other.
+\ifndr{two declarations of the same entity attached to different modules}{no diagnostic}
+is required if neither is reachable from the other.
 \begin{example}
 \begin{codeblocktu}{\tcode{"decls.h"}}
 int f();            // \#1, attached to the global module
@@ -2820,7 +2828,8 @@ typedefs\iref{dcl.typedef} are replaced by their definitions);
 declarations for an array
 object can specify array types that differ by the presence or absence of
 a major array bound\iref{dcl.array}.
-No diagnostic is required if neither declaration is reachable from the other.
+\ifndr{multiple declarations for the same item in different modules}{No diagnostic}
+is required if neither declaration is reachable from the other.
 \begin{example}
 \begin{codeblock}
 int f(int x, int x);    // error: different entities for \tcode{x}

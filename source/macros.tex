@@ -169,9 +169,41 @@
 \let\textup\otextup%
 }
 
+% \indexifndr synthesizes a collation key from the argument; that is, an
+% invocation \indexifndr{arg} emits an index entry `key@arg`, where `key`
+% is derived from `arg` by replacing the folowing list of commands with their
+% bare content. This allows, say, collating plain text and code.
+\newcommand{\indexifndr}[1]{%
+\let\otextup\textup%
+\let\textup\nocode%
+\let\otcode\tcode%
+\let\tcode\nocode%
+\let\oexposid\exposid%
+\let\exposid\nocode%
+\let\ogrammarterm\grammarterm%
+\let\grammarterm\nocode%
+\let\omname\mname%
+\let\mname\idxmname%
+\let\oCpp\Cpp%
+\let\Cpp\idxCpp%
+\let\oBreakableUnderscore\BreakableUnderscore%  See the "underscore" package.
+\let\BreakableUnderscore\textunderscore%
+\edef\x{#1}%
+\let\tcode\otcode%
+\let\exposid\oexposid%
+\let\grammarterm\gterm%
+\let\mname\omname%
+\let\Cpp\oCpp%
+\let\BreakableUnderscore\oBreakableUnderscore%
+\index[ifndrindex]{\x@#1}%
+\let\grammarterm\ogrammarterm%
+\let\textup\otextup%
+}
+
 \newcommand{\indexdefn}[1]{\indextext{#1}}
 \newcommand{\idxbfpage}[1]{\textbf{\hyperpage{#1}}}
 \newcommand{\indexgrammar}[1]{\indextext{#1}\indexgram{#1|idxbfpage}}
+
 % This command uses the "cooked" \indeximpldef command to emit index
 % entries; thus they only work for simple index entries that do not contain
 % special indexing instructions.
@@ -179,6 +211,16 @@
 % \impldefplain passes the argument directly to the index, allowing you to
 % use special indexing instructions (!, @, |).
 \newcommand{\impldefplain}[1]{\index[impldefindex]{#1}implementation-defined}
+
+% This command uses the "cooked" \indexifndr command to emit index
+% entries; thus they only work for simple index entries that do not contain
+% special indexing instructions.  The first argument is the index entry.
+% The second argument is the in-document text.
+\newcommand{\ifndr}[2]{\indexifndr{#1}#2}
+% \ifndrplain passes the argument directly to the index, allowing you to
+% use special indexing instructions (!, @, |).  The first argument is the
+% index entry.  The second argument is the in-document text.
+\newcommand{\ifndrplain}[2]{\index[ifndrindex]{#1}#2}
 
 % appearance
 % avoid \tcode to avoid falling victim of \tcode redefinition in CodeBlockSetup

@@ -64,6 +64,7 @@
 \makeindex[name=libraryindex,options=-s libraryindex.ist,title=Index of library names]
 \makeindex[name=conceptindex,title=Index of library concepts]
 \makeindex[name=impldefindex,title=Index of implementation-defined behavior]
+\makeindex[name=ifndrindex,title=Index of ill-formed no diagnostic required] % no /ifndr needed
 \makeglossary[xrefindex]
 \makeglossary[xrefdelta]
 
@@ -117,7 +118,7 @@
 \include{lib-intro}
 \include{support}
 \include{concepts}
-\include{diagnostics}
+\include{diagnostics}  % no /ifndr needed
 \include{memory}
 \include{meta}
 \include{utilities}
